@@ -1,0 +1,76 @@
+﻿<ContentDialog
+    x:Class="ProductUWP.Dialogs.ProductDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ProductUWP.Dialogs"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}"
+    PrimaryButtonText="Submit"
+    SecondaryButtonText="Cancel"
+    PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
+    SecondaryButtonClick="ContentDialog_SecondaryButtonClick">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <RadioButton Grid.Column="0" GroupName="ItemType" Content="Weight" IsChecked="{Binding Path=IsWeight, Mode=TwoWay}"></RadioButton>
+            <RadioButton Grid.Column="1" GroupName="ItemType" Content="Quantity" IsChecked="{Binding Path=IsQuantity, Mode=TwoWay}"/>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Text="Title"></TextBlock>
+            <TextBox Grid.Column="1" Text="{Binding Path=Name, Mode=TwoWay}"/>
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Text="Description"></TextBlock>
+            <TextBox Grid.Column="1" Text="{Binding Path=Description, Mode=TwoWay}"/>
+        </Grid>
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Text="Price"></TextBlock>
+            <TextBox Grid.Column="1" Text="{Binding Path=Price, Mode=TwoWay}"/>
+        </Grid>
+        <Grid Grid.Row="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid Visibility="{Binding Path=IsQuantityCardVisible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="Total Quantity:"></TextBlock>
+                <TextBox Grid.Column="1" Text="{Binding Path=Quantity, Mode=TwoWay}"/>
+            </Grid>
+            <Grid Visibility="{Binding Path=IsWeightCardVisible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="Total Weight:"></TextBlock>
+                <TextBox Grid.Column="1" Text="{Binding Path=Weight, Mode=TwoWay}"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</ContentDialog>

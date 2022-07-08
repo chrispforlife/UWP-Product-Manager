@@ -1,0 +1,59 @@
+﻿<ContentDialog
+    x:Class="ProductUWP.Dialogs.ATCDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ProductUWP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:viewmodels="using:ProductUWP.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:ProductViewModel}"
+    mc:Ignorable="d"
+        Title="Add to Cart Dialog"
+    PrimaryButtonText="Submit"
+    SecondaryButtonText="Cancel"
+    PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
+    SecondaryButtonClick="ContentDialog_SecondaryButtonClick">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid Visibility="{Binding Path=IsQuantityCardVisible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+            </Grid>
+            <Grid Visibility="{Binding Path=IsWeightCardVisible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="Enter Weight to add:"></TextBlock>
+                <TextBox Grid.Column="1" Text="{Binding Path=Weight, Mode=TwoWay}"/>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid Visibility="{Binding Path=IsQuantityCardVisible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="Enter Quantity to add:"></TextBlock>
+                <TextBox Grid.Column="1" Text="{Binding Path=Quantity, Mode=TwoWay}"/>
+            </Grid>
+            <Grid Visibility="{Binding Path=IsWeightCardVisible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="Enter Weight to add:"></TextBlock>
+                <TextBox Grid.Column="1" Text="{Binding Path=Weight, Mode=TwoWay}"/>
+            </Grid>
+        </Grid>
+        </Grid>
+</ContentDialog>
+

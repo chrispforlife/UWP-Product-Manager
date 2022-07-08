@@ -1,0 +1,59 @@
+﻿<ContentDialog
+    x:Class="ProductUWP.Dialogs.QuantityDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ProductUWP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+        Title="Enter Product by Quantity:"
+    PrimaryButtonText="Submit"
+    SecondaryButtonText="Cancel"
+    PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
+    SecondaryButtonClick="ContentDialog_SecondaryButtonClick">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Name="ProductTitle" Text="Title"></TextBlock>
+            <TextBox Grid.Column="1" Name="PT" Text="{Binding Path=Name, Mode=TwoWay}"/>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Name="ProductDesc" Text="Description"></TextBlock>
+            <TextBox Grid.Column="1" Name="PD" Text="{Binding Path=Description, Mode=TwoWay}"/>
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Name="ProductPrice" Text="Price"></TextBlock>
+            <TextBox Grid.Column="1" Name="PP" Text="{Binding Path=Price, Mode=TwoWay}"/>
+        </Grid>
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Name="Inventory_Quantity" Grid.Column="0" Text="Inventory Quantity"></TextBlock>
+            <TextBox Name="IQuantity" Grid.Column="1" Text="{Binding Path=IQ, Mode=TwoWay}"/>
+
+            <TextBlock Name="Cart_Quantity" Grid.Column="0" Text="Cart Quantity"></TextBlock>
+            <TextBox Name="CQuantity" Grid.Column="1" Text="{Binding Path=CQ, Mode=TwoWay}"/>
+        </Grid>
+    </Grid>
+</ContentDialog>

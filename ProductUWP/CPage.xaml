@@ -1,0 +1,194 @@
+﻿<Page
+    x:Class="ProductUWP.CPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ProductUWP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*"/>
+            <!--Search Bar-->
+            <RowDefinition Height="3*"/>
+            <!--Spacer-->
+            <RowDefinition Height="20*"/>
+            <!--Inventory List View-->
+            <RowDefinition Height="3*"/>
+            <!--Spacer-->
+            <RowDefinition Height="20*"/>
+            <!--Cart List View-->
+            <RowDefinition Height="5*"/>
+            <!-- Button Bar-->
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="8*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ></TextBlock>
+                <Button Grid.Column="1" Content="Save" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="CSave_Click"></Button>
+                <Button Grid.Column="2" Content="Load" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="CLoad_Click"></Button>
+                <Button Grid.Column="3" Content="Sort Name" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="CSortN_Click"></Button>
+                <Button Grid.Column="4" Content="Sort Total Price" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="SortbyTP_Click"></Button>
+            </Grid>
+            <TextBox Grid.Column="1" Text="{Binding Path=Query, Mode=TwoWay}"></TextBox>
+            <Button Grid.Column="2" Content="Search" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Click="CSearch_Click"></Button>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock FontSize="30" TextAlignment="Center" Text="Cart Products"/>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <ListBox ItemsSource="{Binding Path=Carts,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=SelectedProduct, Mode=TwoWay}" Grid.ColumnSpan="16">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="5*"/>
+                                <RowDefinition Height="5*"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" FontSize="12" Text="{Binding Path=Id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
+
+                            <Grid Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Grid.Column="0" MinWidth="100" Text="{Binding Path=Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
+                                <TextBlock Grid.Column="1" MinWidth="100" Text="{Binding Path=Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
+                                <TextBlock Grid.Column="2" MinWidth="100" Text="{Binding Path=Price, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
+                                <Grid Grid.Column="3" Visibility="{Binding Path=IsQuantityCardVisible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="3" MinWidth="100" Text="{Binding Path=CQ, Mode=TwoWay}"/>
+                                </Grid>
+                                <Grid Grid.Column="3" Visibility="{Binding Path=IsWeightCardVisible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="3" MinWidth="100" Text="{Binding Path=CW, Mode=TwoWay}"/>
+                                </Grid>
+                                <TextBlock Grid.Column="4" MinWidth="100" Text="{Binding Path=TotalPrice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
+                            </Grid>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock FontSize="30" TextAlignment="Center" Text="Inventory Products"/>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="4">
+            <ListBox ItemsSource="{Binding Path=Inventory,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=SelectedProduct, Mode=TwoWay}" Grid.ColumnSpan="5">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.Row="0" FontSize="18" Text="{Binding Path=Id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
+
+                            <Grid Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Grid.Column="0" MinWidth="100" Text="{Binding Path=Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
+                                <TextBlock Grid.Column="1" MinWidth="100" Text="{Binding Path=Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
+                                <TextBlock Grid.Column="2" MinWidth="100" Text="{Binding Path=Price, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
+                                <Grid Grid.Column="3" Visibility="{Binding Path=IsQuantityCardVisible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="3" Text="{Binding Path=IQ, Mode=TwoWay}"/>
+                                </Grid>
+                                <Grid Grid.Column="3" Visibility="{Binding Path=IsWeightCardVisible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="3" Text="{Binding Path=IW, Mode=TwoWay}"/>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+        <Grid Grid.Row="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="5*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button Content="Add To Cart" Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Click="Add_To_Cart_Click"></Button>
+                <Button Content="Checkout" Grid.Column="1"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Click="Checkout"></Button>
+            </Grid>
+            <Grid Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button Content="Update Product" Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Click="CEdit_Click"></Button>
+                <Button Content="Delete Product" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Click="CRemove_Click"></Button>
+            </Grid>
+            <Grid Grid.Column="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button Content="Exit to Main Menu" Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Click="Menu_Click"></Button>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>

@@ -1,0 +1,45 @@
+﻿<Page
+    x:Class="ProductUWP.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ProductUWP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <!--Prompt-->
+            <RowDefinition/>
+            <!--Button Bar-->
+            <RowDefinition/>
+            <!-- Button Bar-->
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <TextBlock Grid.Column="0" FontSize="30" TextAlignment="Center" Text="Are you a store employee or a customer?&#x0a;1. Employee&#x0a;2. Customer&#x0a;3. Quit"></TextBlock>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Button Content="1. Employee" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="Employee_Click" ></Button>
+            <Button Content="2. Customer" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="Customer_Click"></Button>
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Button Content="Exit" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="Exit_Click" ></Button>
+        </Grid>
+    </Grid>
+</Page>
