@@ -81,7 +81,7 @@ namespace ProductUWP
             (DataContext as MainViewModel).SortbyPrice();
         }
 
-                private void Menu_Click(object sender, RoutedEventArgs e)
+        private void Menu_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(MainPage));
         }

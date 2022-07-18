@@ -63,22 +63,24 @@
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
+                                    <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
 
                                 <TextBlock Grid.Column="0" MinWidth="100" Text="{Binding Path=Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
                                 <TextBlock Grid.Column="1" MinWidth="100" Text="{Binding Path=Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
                                 <TextBlock Grid.Column="2" MinWidth="100" Text="{Binding Path=Price, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
-                                <Grid Grid.Column="3" Visibility="{Binding Path=IsQuantityCardVisible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                <TextBlock Grid.Column="3" MinWidth="100" Text="{Binding Path=BG, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
+                                <Grid Grid.Column="4" Visibility="{Binding Path=IsQuantityCardVisible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition/>
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="3" Text="{Binding Path=IQ, Mode=TwoWay}"/>
+                                    <TextBlock Grid.Column="4" Text="{Binding Path=IQ, Mode=TwoWay}"/>
                                 </Grid>
-                                <Grid Grid.Column="3" Visibility="{Binding Path=IsWeightCardVisible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                <Grid Grid.Column="4" Visibility="{Binding Path=IsWeightCardVisible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition/>
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="3" Text="{Binding Path=IW, Mode=TwoWay}"/>
+                                    <TextBlock Grid.Column="4" Text="{Binding Path=IW, Mode=TwoWay}"/>
                                 </Grid>
                             </Grid>
                         </Grid>

@@ -18,38 +18,39 @@ namespace Library.TaskManagement.Models
             get { return (Weight == (CWeight + IWeight)); }
         }
 
-        public void UpdateC() { Weight = CWeight; IWeight = Weight; } //used when product exists only in cart
+        public void UpdateC() { Weight = CWeight; IWeight = Weight; Calculate(); } //used when product exists only in cart
         public void UpdateI() { IWeight = Weight; } // used when initializing product
         public void Calculate() 
         {
-            if (this.BG == false) 
-            { TotalPrice = CWeight * Price; }
-            else if (this.BG == true) 
-            {
-                BOGO();
-            }
+            TotalPrice = Math.Round(CWeight * Price, 2);
+            if (this.BG == true) { BOGO(); }
         }
 
         public void BOGO()
         {
-            if (this.BG)
+            double remainder = 0.0;
+            this.CWeight = Math.Round(this.CWeight, 1);
+            if (this.CWeight >= 2)
             {
-                double remainder = 0.0;
-                if (this.CWeight > 2)
+                int whole = (int)CWeight;
+                remainder = Math.Round(this.CWeight - whole, 1);
+
+                if (whole % 2 == 0)
                 {
-                    int whole = (int)Math.Round(this.CWeight, 0);
-                    remainder = this.CWeight - whole;
+                    //get nearest even quantity's Total Price of the product
+                    var EvenTotalPrice = Math.Round(whole * this.Price, 2);
 
-                    if (whole % 2 == 0 && whole >= 0)
-                    {
-                        //get nearest even quantity's Total Price of the product
-                        var EvenTotalPrice = Math.Round(whole * this.Price, 2);
-
-                        //implement half off and add the price of remainding weight product
-                        this.TotalPrice = Math.Round((EvenTotalPrice * 0.5) + (this.Price * remainder), 2);
-                    }
+                    //implement half off and add the price of remainding weight product
+                    this.TotalPrice = Math.Round((EvenTotalPrice * 0.5) + (this.Price * remainder), 2);
                 }
-                
+                else if (whole % 2 != 0)
+                {
+                    //get nearest even quantity's Total Price of the product
+                    var EvenTotalPrice = this.TotalPrice - this.Price;
+
+                    //implement half off and add the price of one extra product
+                    this.TotalPrice = (EvenTotalPrice * 0.5) + this.Price;
+                }
             }
         }
 

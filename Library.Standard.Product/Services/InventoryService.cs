@@ -82,27 +82,6 @@ namespace Library.TaskManagement.Services
             }
         }
 
-        /*
-        public IEnumerable<Product> SortI()
-        {
-            Console.WriteLine("Would you like to sort Inventory by (N)ame or by (U)nit Price?(N/U) ");
-            char c;
-            while (!char.TryParse(Console.ReadLine(), out c) || (c != 'N' && c != 'U')) { Console.WriteLine("Please choose N or U "); }
-            switch (c) 
-            {
-                case 'N':
-                    Console.WriteLine("Sorted by Name");
-                    inventory = inventory.OrderBy(i => i.Name).ToList();
-                    break;
-                case 'U':
-                    Console.WriteLine("Sorted by Price");
-                    inventory = inventory.OrderBy(i => i.Price).ToList();
-                    break;
-            }
-            return inventory;
-        }
-        */
-
         public IEnumerable<Product> SortIBP()
         {
             Console.WriteLine("Sorted by Name");
