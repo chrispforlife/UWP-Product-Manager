@@ -13,7 +13,6 @@ namespace Library.TaskManagement.Services
     public class ProductService
     {
         private List<Product> Cart; // cart list
-        private List<Product> Invent;
 
         private string CurrentCart { get; set; }
         private List<string> cartnames;
@@ -46,7 +45,6 @@ namespace Library.TaskManagement.Services
 
         private ProductService()
         {
-            this.Invent = InventoryService.Current.Inventory; //Creates inventory list
             Cart = new List<Product>(); //Creates cart list
             cartnames = new List<string>();
         }
@@ -72,7 +70,7 @@ namespace Library.TaskManagement.Services
                     if (Products.Contains(Quantity) == false)
                     {
                         Quantity.UpdateC();
-                        Invent.Add(Quantity);
+                        Products.Add(Quantity);
                     }
                     Cart.Remove(Quantity);
                 }
