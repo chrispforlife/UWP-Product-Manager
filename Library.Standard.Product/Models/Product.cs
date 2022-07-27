@@ -1,6 +1,10 @@
-﻿namespace Library.TaskManagement.Models
+﻿using Library.Standard.Products.Utility;
+using Newtonsoft.Json;
+
+namespace Library.TaskManagement.Models
 {
-    public partial class Product
+    [JsonConverter(typeof(ProductJsonConverter))]
+    public class Product
     {
         public string Name { get; set; }
         public string Description { get; set; }

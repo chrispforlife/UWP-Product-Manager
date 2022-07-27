@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Library.Standard.Products.Utility;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,25 +8,61 @@ using System.Threading.Tasks;
 
 namespace Library.TaskManagement.Models
 {
+    [JsonConverter(typeof(ProductJsonConverter))]
     public class ProductByQuantity: Product
     {
         public int CartQuantity { get; set; }
         public int InventoryQuantity { get; set; }
 
+        public ProductByQuantity() 
+        {
+            UpdateI();
+            MakeWithinStock();
+        }
 
-        public bool WithinStock
+        public bool WithinStock //checks if product is within stock
         {
             get { return (Quantity == (CartQuantity + InventoryQuantity)); }
         }
 
-        public void UpdateC() { Quantity = CartQuantity; InventoryQuantity = Quantity; Calculate(); } //used when product exists only in cart
-        public void UpdateI() { InventoryQuantity = Quantity; } // used when initializing product
+        public void UpdateC() { InventoryQuantity = CartQuantity; CartQuantity = 0; Calculate(); } //used when product exists only in cart
+
+        public void UpdateI() { InventoryQuantity = Quantity; CartQuantity = 0; } // used when initializing product
+        public void MakeWithinStock() //updates if product is within stock
+        {
+            Quantity = CartQuantity + InventoryQuantity;
+        }
+
+        public void AddCQ(int i) 
+        {
+            if (WithinStock)
+            {
+                CartQuantity += i;
+                InventoryQuantity -= i;
+                Calculate();
+            }
+        }
+
+        public void RemoveCQ() 
+        {
+            if (WithinStock)
+            {
+                InventoryQuantity += CartQuantity;
+                CartQuantity -= CartQuantity;
+                Calculate();
+            }
+        }
+
         public void Calculate() 
         {
             TotalPrice = Math.Round(CartQuantity * Price, 2);
             
             if (this.BG == true)
             { BOGO(); }
+        }
+        public void MarkBG() 
+        {
+            this.BG = true;
         }
 
         public void BOGO()

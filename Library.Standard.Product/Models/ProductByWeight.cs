@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Library.Standard.Products.Utility;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Library.TaskManagement.Models
 {
+    [JsonConverter(typeof(ProductJsonConverter))]
     public class ProductByWeight : Product
     {
         public double Weight { get; set; }
@@ -13,13 +16,45 @@ namespace Library.TaskManagement.Models
 
         public double CWeight { get; set; }
 
+        public ProductByWeight()
+        {
+            UpdateI();
+            MakeWithinStock();
+        }
         public bool WithinStock
         {
-            get { return (Weight == (CWeight + IWeight)); }
+            get { return (Weight == (Math.Round( (CWeight + IWeight), 2))); }
         }
 
-        public void UpdateC() { Weight = CWeight; IWeight = Weight; Calculate(); } //used when product exists only in cart
-        public void UpdateI() { IWeight = Weight; } // used when initializing product
+        public void UpdateI() { IWeight = Weight; CWeight = 0; } // used when initializing product
+
+        public void UpdateC() { IWeight = CWeight; CWeight = 0; Calculate(); } //used when add non-existant inventory product to inventory from cart
+
+        public void MakeWithinStock()
+        {
+            Weight = CWeight + IWeight;
+        }
+
+        public void AddCW(double i)
+        {
+            if (WithinStock)
+            {
+                CWeight += i;
+                IWeight -= i;
+                Calculate();
+            }
+        }
+
+        public void RemoveCW()
+        {
+            if (WithinStock)
+            {
+                IWeight += CWeight;
+                CWeight -= CWeight;
+                Calculate();
+            }
+        }
+
         public void Calculate() 
         {
             TotalPrice = Math.Round(CWeight * Price, 2);
