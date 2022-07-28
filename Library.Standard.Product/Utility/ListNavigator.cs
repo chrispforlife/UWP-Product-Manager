@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Library.TaskManagement.Utility
+namespace Library.Standard.Products.Utility
 {
     public class ListNavigator<T>
     {

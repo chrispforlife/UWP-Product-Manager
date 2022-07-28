@@ -24,7 +24,23 @@ namespace ProductUWP.Dialogs
             //step 1: coerce datacontext into view model
             var viewModel = DataContext as ProductViewModel;
 
-            //step 3: interact with the service using models;
+            if (viewModel.IsQuantity)
+            {
+                if (!viewModel.BoundPBQ.WithinStock) 
+                {
+                    viewModel.Quantity = viewModel.IQ + viewModel.CQ;
+                }
+            }
+            else if (viewModel.IsWeight) 
+            {
+                if (!viewModel.BoundPBW.WithinStock)
+                {
+                    viewModel.Weight = viewModel.IW + viewModel.CW;
+                }
+            }
+            InventoryService.Current.AddOrUpdate(viewModel.BoundP);
+            ProductService.Current.AddOrUpdate(viewModel.BoundP);
+
         }
 
         private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)

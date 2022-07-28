@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskManagement2022", "TaskM
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Library.TaskManagement", "Library.TaskManagement\Library.TaskManagement.csproj", "{1C958EA1-8FB4-4A2C-94FF-BC82B6326CCB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Library.Standard.Product", "Library.Standard.Product\Library.Standard.Product.csproj", "{D98794E5-22ED-4532-A48A-BB98CA3117CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Library.Standard.Products", "Library.Standard.Product\Library.Standard.Products.csproj", "{D98794E5-22ED-4532-A48A-BB98CA3117CF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductUWP", "ProductUWP\ProductUWP.csproj", "{DE8F27FB-CD77-4AD0-B555-55C9429AC891}"
 EndProject

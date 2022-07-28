@@ -15,7 +15,7 @@
 
   <Properties>
     <DisplayName>ProductUWP</DisplayName>
-    <PublisherDisplayName>pierr</PublisherDisplayName>
+    <PublisherDisplayName>Chris Pierre Paul</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 

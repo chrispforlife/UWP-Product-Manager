@@ -16,8 +16,13 @@ namespace ProductUWP.Dialogs
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {//submit cart name
-            ProductService.Current.Save(CN.Text);
-            ProductService.Current.SaveCarts();
+            var filename = CN.Text;
+            if (!string.IsNullOrEmpty(filename)) 
+            {
+                ProductService.Current.Save(CN.Text);
+                ProductService.Current.SaveCarts();
+            }
+
         }
 
         private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)

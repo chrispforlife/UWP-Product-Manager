@@ -220,9 +220,9 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Library.Standard.Product\Library.Standard.Product.csproj">
+    <ProjectReference Include="..\Library.Standard.Product\Library.Standard.Products.csproj">
       <Project>{d98794e5-22ed-4532-a48a-bb98ca3117cf}</Project>
-      <Name>Library.Standard.Product</Name>
+      <Name>Library.Standard.Products</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

@@ -92,12 +92,26 @@ namespace ProductUWP.Dialogs
             var frame = Window.Current.Content as Frame;
             if (frame != null)
             {
+                
                 if (frame.CurrentSourcePageType == typeof(IPage))
-                { InventoryService.Current.AddOrUpdate(viewModel.BoundPBQ); }
+                {
+                   if (viewModel.IQ > viewModel.Quantity) { viewModel.IQ = viewModel.Quantity; } 
+
+                    InventoryService.Current.AddOrUpdate(viewModel.BoundPBQ); 
+                }
                 else if (frame.CurrentSourcePageType == typeof(CPage))
-                { ProductService.Current.AddOrUpdate(viewModel.BoundPBQ); }
+                {
+                    if (!viewModel.BoundPBQ.WithinStock)
+                    {
+                        if (viewModel.CQ > viewModel.Quantity) { viewModel.CQ = viewModel.Quantity; }
+                        viewModel.IQ = viewModel.Quantity - viewModel.CQ;
+                        viewModel.BoundPBQ.Calculate();
+                        ProductService.Current.AddOrUpdate(viewModel.BoundPBQ);
+                        InventoryService.Current.AddOrUpdate(viewModel.BoundPBQ);
+                    }
+                }
             }
-            
+
         }
 
         private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)

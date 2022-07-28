@@ -83,14 +83,30 @@ namespace ProductUWP.Dialogs
             //step 2: use a conversion constructor from view model -> ProductByWeight
 
             //step 3: interact with the service using models;
+
             var frame = Window.Current.Content as Frame;
             if (frame != null)
             {
+
                 if (frame.CurrentSourcePageType == typeof(IPage))
-                {InventoryService.Current.AddOrUpdate(viewModel.BoundPBW);}
+                {
+                    if (viewModel.IQ > viewModel.Quantity) { viewModel.IQ = viewModel.Quantity; }
+                    InventoryService.Current.AddOrUpdate(viewModel.BoundPBW);
+                }
                 else if (frame.CurrentSourcePageType == typeof(CPage))
-                {ProductService.Current.AddOrUpdate(viewModel.BoundPBW);}
+                {
+                    if (!viewModel.BoundPBW.WithinStock)
+                    {
+                        if (viewModel.CW > viewModel.Weight) { viewModel.CW = viewModel.Weight; }
+                        viewModel.IW = viewModel.Weight - viewModel.CW;
+                        viewModel.BoundPBW.Calculate();
+                    }
+                    ProductService.Current.AddOrUpdate(viewModel.BoundPBW);
+                    ProductService.Current.AddOrUpdate(viewModel.BoundPBW);
+                }
             }
+
+
         }
 
         private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)

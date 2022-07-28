@@ -110,7 +110,7 @@ namespace ProductUWP.ViewModels
         {
             if (SelectedProduct != null)
             {
-                SelectedProduct.BG = true;
+                _IService.MarkBOGO(SelectedProduct.BoundP);
                 NotifyPropertyChanged("Inventory");
             }
         }
@@ -158,7 +158,10 @@ namespace ProductUWP.ViewModels
             if (SelectedProduct != null)
             {
                 if (SelectedProduct.IsWeight)
-                { _CService.AddtoC(SelectedProduct.BoundPBW, 0.1); }
+                { 
+                    
+                    _CService.AddtoC(SelectedProduct.BoundPBW, 0.1); 
+                }
                 else if (SelectedProduct.IsQuantity)
                 { _CService.AddtoC(SelectedProduct.BoundPBQ, 1); }
                 Refresh();

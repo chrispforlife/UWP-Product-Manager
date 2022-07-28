@@ -35,7 +35,16 @@ namespace ProductUWP.Dialogs
             var frame = Window.Current.Content as Frame;
             if (frame != null) 
             {
-                if (frame.CurrentSourcePageType == typeof(IPage)) { InventoryService.Current.AddOrUpdate(viewModel.BoundP); }
+                if (frame.CurrentSourcePageType == typeof(IPage)) 
+                {
+                    if (viewModel.IsQuantity && !viewModel.BoundPBQ.WithinStock) 
+                    { viewModel.BoundPBQ.UpdateI();}
+                    else
+                    if (viewModel.IsWeight && !viewModel.BoundPBW.WithinStock)
+                    { viewModel.BoundPBW.UpdateI(); }
+
+                    InventoryService.Current.AddOrUpdate(viewModel.BoundP); 
+                }
                 else if (frame.CurrentSourcePageType == typeof(CPage)) { ProductService.Current.AddOrUpdate(viewModel.BoundP); }
             }
 
