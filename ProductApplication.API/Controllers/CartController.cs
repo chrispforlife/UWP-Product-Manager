@@ -11,11 +11,11 @@ namespace ProductApplication.API.Controllers
     public class CartController : ControllerBase
     {
         private readonly ILogger<CartController> _logger;
-        private CartEC CEC;
+        //private CartEC CEC;
 
         public CartController(ILogger<CartController> logger)
         {
-            CEC = new CartEC();
+            //CEC = new CartEC();
             _logger = logger;
         }
 
@@ -28,6 +28,8 @@ namespace ProductApplication.API.Controllers
         [HttpPost("AddOrUpdate")]
         public Product AddOrUpdate(Product p)
         {
+            return new CartEC().AddOrUpdate(p);
+            /*
             if (p is ProductByWeight)
             {
                 var w = p as ProductByWeight;
@@ -42,51 +44,38 @@ namespace ProductApplication.API.Controllers
             {
                 return CEC.AddOrUpdate(p);
             }
+            */
         }
 
         [HttpGet("Delete/{id}")]
-        public Product Remove(int id)
+        public bool Remove(int id)
         {
-            var prodToDelete = FakeDatabase.Currentcart.FirstOrDefault(i => i.Id == id);
-
-            FakeDatabase.Currentcart.Remove(prodToDelete);
-
-            return prodToDelete ?? new Product();
+            return new CartEC().Delete(id);
         }
 
         [HttpGet("Save/{name}")]
         public List<Product> Save(string name)
         {
-
-            List<Product> Carts = FakeDatabase.Currentcart.ToList();
-            FakeDatabase.CCname = name;
-            FakeDatabase.addCart(FakeDatabase.CCname, Carts);
-            return Carts;
+            return new CartEC().Save(name);
         }
 
         [HttpGet("Load/{name}")]
 
         public List<Product> Load(string name)
-        { 
-            FakeDatabase.Currentcart = FakeDatabase.getCart(name);
-            return FakeDatabase.Currentcart;
+        {
+            return new CartEC().Load(name);
         }
 
         [HttpPost("SaveCarts")]
         public List<string> SaveCarts(List<string> cartnames)
         {
-            return cartnames;
+            return new CartEC().SaveCarts(cartnames);
         }
 
         [HttpGet("LoadCarts")]
         public List<string> LoadCarts()
         {
-            var cartnames = new List<string>();
-            foreach (var cn in FakeDatabase.Carts) 
-            {
-                cartnames.Add(cn.Key);
-            }
-            return cartnames;
+            return new CartEC().LoadCarts();
         }
     }
 }

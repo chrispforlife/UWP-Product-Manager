@@ -7,11 +7,13 @@ namespace ProductApplication.API.EC
     {
         public List<Product> Get() 
         {
-            return FakeDatabase.Currentcart;
+            return Filebase.Current.Cart;
+            //return FakeDatabase.Currentcart;
         }
 
         public Product AddOrUpdate(Product p)
         {
+            /*
             if (p.Id <= 0)
             {
                 p.Id = FakeDatabase.NextId;
@@ -32,50 +34,70 @@ namespace ProductApplication.API.EC
             }
 
             return p;
-        }
-
-        public ProductByQuantity AddOrUpdate(ProductByQuantity quantity)
-        {
-            if (quantity.Id <= 0)
+            */
+            if (p is ProductByQuantity)
             {
-                quantity.Id = FakeDatabase.NextId;
-                FakeDatabase.Currentcart.Add(quantity);
+                return Filebase.Current.CAddOrUpdate(p) as ProductByQuantity ?? new ProductByQuantity();
             }
-
-            var itemToUpdate = FakeDatabase.Currentcart.FirstOrDefault(t => t.Id == quantity.Id);
-            if (itemToUpdate != null)
+            else
+            if (p is ProductByWeight)
             {
-                FakeDatabase.Currentcart.Remove(itemToUpdate);
-                FakeDatabase.Currentcart.Add(quantity);
+                return Filebase.Current.CAddOrUpdate(p) as ProductByWeight ?? new ProductByWeight();
             }
             else
             {
-                FakeDatabase.Currentcart.Add(quantity);
+                return Filebase.Current.CAddOrUpdate(p) as Product ?? new Product();
             }
-
-            return quantity;
         }
 
-        public ProductByWeight AddOrUpdate(ProductByWeight weight)
+        public bool Delete(int id) 
         {
-            if (weight.Id <= 0)
+            if (Filebase.Current.Delete(id))
             {
-                weight.Id = FakeDatabase.NextId;
-                FakeDatabase.Currentcart.Add(weight);
+                return true;
             }
 
-            var productToUpdate = FakeDatabase.Currentcart.FirstOrDefault(t => t.Id == weight.Id);
-            if (productToUpdate != null)
-            {
-                FakeDatabase.Currentcart.Remove(productToUpdate);
-                FakeDatabase.Currentcart.Add(weight);
-            }
-            else
-            {
-                FakeDatabase.Currentcart.Add(weight);
-            }
+            return false;
 
-            return weight;
+            /* 
+            var prodToDelete = FakeDatabase.Currentcart.FirstOrDefault(i => i.Id == id);
+
+            FakeDatabase.Currentcart.Remove(prodToDelete);
+
+            return prodToDelete ?? new Product();
+            */
+        }
+
+        public List<Product> Save(string name)
+        {
+            return Filebase.Current.SaveC(name);
+            /* Assignment 4 
+            List<Product> Carts = FakeDatabase.Currentcart.ToList();
+            FakeDatabase.CCname = name;
+            FakeDatabase.addCart(FakeDatabase.CCname, Carts);
+
+            return Carts;
+            */
+        }
+
+        public List<Product> Load(string name)
+        {
+            return Filebase.Current.LoadC(name);
+            /* Assignment 4
+            FakeDatabase.Currentcart = FakeDatabase.getCart(name);
+            return FakeDatabase.Currentcart;
+            */
+
+        }
+
+        public List<string> SaveCarts(List<string> cartnames)
+        {
+            return cartnames;
+        }
+
+        public List<string> LoadCarts()
+        {
+            return Filebase.Current.LoadCarts();
         }
     }
 }

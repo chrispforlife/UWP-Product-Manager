@@ -7,11 +7,13 @@ namespace ProductApplication.API.EC
     {
         public List<Product> Get()
         {
-            return FakeDatabase.Inventory;
+            //return FakeDatabase.Inventory;
+            return Filebase.Current.Inventory;
         }
 
         public Product AddOrUpdate(Product p)
         {
+            /* Assignment 4
             if (p.Id <= 0)
             {
                 p.Id = FakeDatabase.NextId;
@@ -29,56 +31,54 @@ namespace ProductApplication.API.EC
                 {
                     FakeDatabase.Inventory.Add(p);
                 }
-
-
             }
 
             return p;
-        }
+            */
 
-        public ProductByQuantity AddOrUpdate(ProductByQuantity quantity)
-        {
-            if (quantity.Id <= 0)
+            if (p is ProductByQuantity)
             {
-                quantity.Id = FakeDatabase.NextId;
-                FakeDatabase.Inventory.Add(quantity);
+                return Filebase.Current.IAddOrUpdate(p) as ProductByQuantity ?? new ProductByQuantity();
             }
-
-            var itemToUpdate = FakeDatabase.Inventory.FirstOrDefault(t => t.Id == quantity.Id);
-            if (itemToUpdate != null)
+            else
+                if (p is ProductByWeight)
             {
-                FakeDatabase.Inventory.Remove(itemToUpdate);
-                FakeDatabase.Inventory.Add(quantity);
-            }
-            else 
-            {
-                FakeDatabase.Inventory.Add(quantity);
-            }
-
-            return quantity;
-        }
-
-        public ProductByWeight AddOrUpdate(ProductByWeight weight)
-        {
-            if (weight.Id <= 0)
-            {
-                weight.Id = FakeDatabase.NextId;
-                FakeDatabase.Inventory.Add(weight);
-            }
-
-            var productToUpdate = FakeDatabase.Inventory.FirstOrDefault(t => t.Id == weight.Id);
-            if (productToUpdate != null)
-            {
-                FakeDatabase.Inventory.Remove(productToUpdate);
-                FakeDatabase.Inventory.Add(weight);
+                return Filebase.Current.IAddOrUpdate(p) as ProductByWeight ?? new ProductByWeight();
             }
             else
             {
-                FakeDatabase.Inventory.Add(weight);
+                return Filebase.Current.IAddOrUpdate(p) as Product ?? new Product();
             }
-
-            return weight;
         }
 
+        public bool Delete(int id)
+        {
+            if (Filebase.Current.Delete(id))
+            {
+                /*
+                var prodToDelete = FakeDatabase.Inventory.FirstOrDefault(i => i.Id == id);
+
+                FakeDatabase.Inventory.Remove(prodToDelete);
+                return prodToDelete ?? new Product();
+                */
+                return true;
+            }
+
+            return false;
+        }
+
+        public List<Product> Save() 
+        {
+            /*
+            List<Product> temp = FakeDatabase.UpdateSI(inventory);
+            return temp;
+            */
+            return Filebase.Current.SaveI();
+        }
+
+        public List<Product> Load()
+        {
+            return Filebase.Current.LoadI();
+        }
     }
 }

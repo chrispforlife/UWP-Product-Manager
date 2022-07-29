@@ -11,11 +11,11 @@ namespace ProductApplication.API.Controllers
     public class InventoryController : ControllerBase
     {
         private readonly ILogger<InventoryController> _logger;
-        private InventoryEC IEC;
+        //private InventoryEC IEC;
 
         public InventoryController(ILogger<InventoryController> logger)
         {
-            IEC = new InventoryEC();
+            //IEC = new InventoryEC();
             _logger = logger;
         }
 
@@ -28,6 +28,9 @@ namespace ProductApplication.API.Controllers
         [HttpPost("AddOrUpdate")]
         public Product AddOrUpdate(Product p)
         {
+            return new InventoryEC().AddOrUpdate(p);
+
+            /*
             if (p is ProductByWeight)
             {
                 var w = p as ProductByWeight;
@@ -42,30 +45,28 @@ namespace ProductApplication.API.Controllers
             {
                 return IEC.AddOrUpdate(p);
             }
+            */
         }
 
         [HttpGet("Delete/{id}")]
-        public Product Remove(int id)
-        {
-            var prodToDelete = FakeDatabase.Inventory.FirstOrDefault(i => i.Id == id);
+        public bool Remove(int id)
+        { //moved original remove to EC file
 
-            FakeDatabase.Inventory.Remove(prodToDelete);
-            return prodToDelete ?? new Product();
+            return new InventoryEC().Delete(id);
         }
 
 
         [HttpPost("Save")]
         public List<Product> Save(List<Product> inventory)
         {
-            List<Product> temp = FakeDatabase.UpdateSI(inventory);
-            return temp;
+            return new InventoryEC().Save();
         }
 
 
         [HttpGet("Load")]
         public List<Product> Load()
         {
-            return FakeDatabase.UpdateI(FakeDatabase.SInventory);
+            return new InventoryEC().Load();
         }
     }
 }
